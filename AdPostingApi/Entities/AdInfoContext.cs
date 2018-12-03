@@ -8,26 +8,35 @@ namespace AdPostingApi.Entities
 {
     public class AdInfoContext : DbContext
     {
-        public List<AdInfo> Ads { get; set; }
+        public DbSet<AdInfo> Ads { get; set; }
 
-        public AdInfoContext()
+        public AdInfoContext(DbContextOptions<AdInfoContext> options) : base(options)
         {
-            InitMockupData();
-        }
+            Database.Migrate();
 
-        private void InitMockupData()
-        {
-            Ads = new List<AdInfo>()
+            if (!Ads.Any())
             {
-                new AdInfo(){ Id = 1, Title = "Car", Text = "Excellent condition.", Category = "Vehicle" },
-                new AdInfo(){ Id = 2, Title = "Airplane", Text = "Terrible condition.", Category = "Vehicle" },
-                new AdInfo(){ Id = 3, Title = "Dog", Text = "Not very friendly.", Category = "Pet" },
-                new AdInfo(){ Id = 4, Title = "Cat", Text = "Likes to cuddle.", Category = "Pet" },
-                new AdInfo(){ Id = 5, Title = "Boots", Text = "Good for long walks.", Category = "Shoes" }
-            };
-         
+                AddMockupData();
+            }
         }
 
+        private void AddMockupData()
+        {
+            var ads = new List<AdInfo>()
+            {
+                new AdInfo(){
+                    Title = "Test title 1", Text = "Test text 1", Category = "Test category 1",
+                    Pictures = new List<AdPicture>(){ new AdPicture() { AdId = 1, Title = "Test picture 1", Url = "Test url 1" }}
+                },
 
+                new AdInfo(){
+                    Title = "Test title 2", Text = "Test text 2", Category = "Test category 2",
+                    Pictures = new List<AdPicture>(){ new AdPicture() { AdId = 2, Title = "Test picture 2", Url = "Test url 2" }}
+                }
+            };
+
+            Ads.AddRange(ads);
+            this.SaveChanges();
+        }
     }
 }

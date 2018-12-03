@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace AdPostingApi.Entities
 {
-    public class AdInfo
+    public class AdPicture
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Title { get; set; }
-
-        [MaxLength(500)]
-        public string Text { get; set; }
+        public int AdId { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string Category { get; set; }
+        public string Title { get; set; }
 
-        public IEnumerable<AdPicture> Pictures { get; set; } = new List<AdPicture>();
+        [Required]
+        public string Url { get; set; }
     }
 }

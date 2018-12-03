@@ -5,3 +5,4 @@
 - Enable logging 
 - Enable EF?
 - Storing sensitive data / enviroments?
+- Add unit tests
