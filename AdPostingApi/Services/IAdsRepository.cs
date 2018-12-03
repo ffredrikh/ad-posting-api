@@ -9,5 +9,9 @@ namespace AdPostingApi.Services
     public interface IAdsRepository
     {
         IEnumerable<AdInfo> GetAds();
+
+        AdInfo GetAd(int id);
+
+        AdInfo AddAd(AdInfo adInfo);
     }
 }

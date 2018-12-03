@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdPostingApi.Models;
 using AdPostingApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,9 @@ namespace AdPostingApi.Controllers
 
         // GET api/ads/5
         [HttpGet("{id}")]
-        public ActionResult<int> Get(int id)
+        public ActionResult<AdInfoDto> Get(int id)
         {
-            return id;
+            return Ok(_repo.GetAd(id));
         }
 
         // POST api/values

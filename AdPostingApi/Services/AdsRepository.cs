@@ -15,6 +15,16 @@ namespace AdPostingApi.Services
             _context = context;
         }
 
+        public AdInfo AddAd(AdInfo adInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AdInfo GetAd(int id)
+        {
+            return _context.Ads.FirstOrDefault(a => a.Id == id);
+        }
+
         public IEnumerable<AdInfo> GetAds()
         {
             return _context.Ads.OrderBy(a => a.Title);

@@ -1,0 +1,7 @@
+﻿________________TODO
+
+- Enable crud operations
+- Enable automapper entities <--> dto
+- Enable logging 
+- Enable EF?
+- Storing sensitive data / enviroments?
