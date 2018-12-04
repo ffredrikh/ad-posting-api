@@ -21,7 +21,10 @@ namespace AdPostingApi.Services
 
         public AdInfo AddAd(AdInfo adInfo)
         {
-            throw new NotImplementedException();
+            var ad = _context.AdsInfo.Add(adInfo);
+            _context.SaveChanges();
+            return ad.Entity;
+
         }
 
         public AdInfo GetAd(int id)

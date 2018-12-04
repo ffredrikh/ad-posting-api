@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdPostingApi.Entities;
 using AdPostingApi.Models;
 using AdPostingApi.Services;
 using Microsoft.AspNetCore.Http;
@@ -28,17 +29,40 @@ namespace AdPostingApi.Controllers
             return Ok(ads);
         }
 
-        // GET api/ads/5
-        [HttpGet("{id}")]
+        // GET api/ads/x
+        [HttpGet("{id}", Name = "GetAd")]
         public ActionResult<AdInfoDto> Get(int id)
         {
             return Ok(_repo.GetAd(id));
         }
 
-        // POST api/values
+        // POST api/ads
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] AdInfoDto adInfoDto)
         {
+            if (adInfoDto == null)
+                return BadRequest();
+
+            if (string.IsNullOrWhiteSpace(adInfoDto.Title))
+                ModelState.AddModelError("Description", "Title is missing.");
+
+            if (string.IsNullOrWhiteSpace(adInfoDto.Text))
+                ModelState.AddModelError("Description", "Text is missing.");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // Use automapper
+            var adInfo = new AdInfo()
+            {
+                Title = adInfoDto.Title,
+                Text = adInfoDto.Text,
+                Category = adInfoDto.Category,
+                Pictures = adInfoDto.Pictures
+            };
+
+            _repo.AddAd(adInfo);
+            return CreatedAtRoute("GetAd", new { Id = adInfo.Id }, adInfo);
         }
 
         // PUT api/values/5
