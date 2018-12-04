@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdPostingApi.Entities;
+using AdPostingApi.Models;
 using AdPostingApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,11 @@ namespace AdPostingApi
             {
                 app.UseHsts();
             }
+
+            AutoMapper.Mapper.Initialize(cfg => {
+                cfg.CreateMap<AdInfo, AdInfoDto>();
+                cfg.CreateMap<AdPicture, AdPictureDto>();
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();

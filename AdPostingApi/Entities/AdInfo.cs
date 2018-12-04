@@ -22,6 +22,6 @@ namespace AdPostingApi.Entities
         [MaxLength(50)]
         public string Category { get; set; }
 
-        public IEnumerable<AdPicture> Pictures { get; set; } = new List<AdPicture>();
+        public ICollection<AdPicture> Pictures { get; set; } = new List<AdPicture>();
     }
 }

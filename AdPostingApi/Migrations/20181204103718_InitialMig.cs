@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AdPostingApi.Migrations
 {
-    public partial class AdPostingApi : Migration
+    public partial class InitialMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ads",
+                name: "AdsInfo",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -19,44 +19,43 @@ namespace AdPostingApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ads", x => x.Id);
+                    table.PrimaryKey("PK_AdsInfo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdPicture",
+                name: "AdPictures",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdId = table.Column<int>(nullable: false),
+                    AdInfoId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 50, nullable: false),
-                    Url = table.Column<string>(nullable: false),
-                    AdInfoId = table.Column<int>(nullable: true)
+                    Url = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdPicture", x => x.Id);
+                    table.PrimaryKey("PK_AdPictures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdPicture_Ads_AdInfoId",
+                        name: "FK_AdPictures_AdsInfo_AdInfoId",
                         column: x => x.AdInfoId,
-                        principalTable: "Ads",
+                        principalTable: "AdsInfo",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AdPicture_AdInfoId",
-                table: "AdPicture",
+                name: "IX_AdPictures_AdInfoId",
+                table: "AdPictures",
                 column: "AdInfoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AdPicture");
+                name: "AdPictures");
 
             migrationBuilder.DropTable(
-                name: "Ads");
+                name: "AdsInfo");
         }
     }
 }

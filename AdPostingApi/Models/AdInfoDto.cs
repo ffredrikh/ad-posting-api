@@ -12,7 +12,7 @@ namespace AdPostingApi.Models
         public string Title { get; set; }
         public string Text { get; set; }
         public string Category { get; set; }
-        public IEnumerable<AdPicture> Pictures { get; set; }
+        public ICollection<AdPicture> Pictures { get; set; } = new List<AdPicture>();
 
     }
 }

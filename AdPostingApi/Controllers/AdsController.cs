@@ -24,7 +24,8 @@ namespace AdPostingApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_repo.GetAds());
+            var ads = AutoMapper.Mapper.Map<IEnumerable<AdInfoDto>>(_repo.GetAds());
+            return Ok(ads);
         }
 
         // GET api/ads/5
