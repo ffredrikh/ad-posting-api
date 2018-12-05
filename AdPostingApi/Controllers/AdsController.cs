@@ -8,6 +8,7 @@ using AdPostingApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AdPostingApi.Controllers
 {
@@ -16,11 +17,12 @@ namespace AdPostingApi.Controllers
     public class AdsController : ControllerBase
     {
         private IAdsRepository _repo;
+        private ILogger<AdsController> _logger; 
 
-
-        public AdsController(IAdsRepository repo)
+        public AdsController(IAdsRepository repo, ILogger<AdsController> logger)
         {
             _repo = repo;
+            _logger = logger;
         }
 
 
@@ -38,7 +40,10 @@ namespace AdPostingApi.Controllers
         public ActionResult<AdInfoDto> Get(int id)
         {
             if (!_repo.AdExists(id))
+            {
+                _logger.LogInformation($"Ad with id {id} was not found.");
                 return NotFound();
+            }
 
             var ad = AutoMapper.Mapper.Map<AdInfoDto>(_repo.GetAd(id));
             return Ok(ad);

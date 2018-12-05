@@ -1,7 +1,6 @@
 ﻿________________TODO
 
-- Enable crud operations
-- Enable logging 
+
 - Storing sensitive data / enviroments?
 - Add unit tests
 - handle strings
