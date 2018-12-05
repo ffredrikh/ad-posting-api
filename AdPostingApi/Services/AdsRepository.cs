@@ -22,9 +22,17 @@ namespace AdPostingApi.Services
         public AdInfo AddAd(AdInfo adInfo)
         {
             var ad = _context.AdsInfo.Add(adInfo);
-            _context.SaveChanges();
             return ad.Entity;
+        }
 
+        public bool AdExists(int id)
+        {
+            return _context.AdsInfo.Any(a => a.Id == id);
+        }
+
+        public void DeleteAd(AdInfo adInfo)
+        {
+            _context.AdsInfo.Remove(adInfo);
         }
 
         public AdInfo GetAd(int id)
@@ -35,6 +43,11 @@ namespace AdPostingApi.Services
         public IEnumerable<AdInfo> GetAds()
         {
             return _context.AdsInfo.Include(p => p.Pictures).OrderBy(a => a.Title).ToList();
+        }
+
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
         }
 
         private void AddAdMockupData()
@@ -56,7 +69,7 @@ namespace AdPostingApi.Services
             };
 
             _context.AdsInfo.AddRange(ads);
-            _context.SaveChanges();
+            Save();
         }
     }
 }

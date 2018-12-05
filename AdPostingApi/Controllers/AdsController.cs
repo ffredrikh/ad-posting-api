@@ -6,6 +6,7 @@ using AdPostingApi.Entities;
 using AdPostingApi.Models;
 using AdPostingApi.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdPostingApi.Controllers
@@ -16,10 +17,12 @@ namespace AdPostingApi.Controllers
     {
         private IAdsRepository _repo;
 
+
         public AdsController(IAdsRepository repo)
         {
             _repo = repo;
         }
+
 
         // GET api/ads
         [HttpGet]
@@ -29,12 +32,18 @@ namespace AdPostingApi.Controllers
             return Ok(ads);
         }
 
+
         // GET api/ads/x
         [HttpGet("{id}", Name = "GetAd")]
         public ActionResult<AdInfoDto> Get(int id)
         {
-            return Ok(_repo.GetAd(id));
+            if (!_repo.AdExists(id))
+                return NotFound();
+
+            var ad = AutoMapper.Mapper.Map<AdInfoDto>(_repo.GetAd(id));
+            return Ok(ad);
         }
+
 
         // POST api/ads
         [HttpPost]
@@ -52,29 +61,68 @@ namespace AdPostingApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Use automapper
-            var adInfo = new AdInfo()
-            {
-                Title = adInfoDto.Title,
-                Text = adInfoDto.Text,
-                Category = adInfoDto.Category,
-                Pictures = adInfoDto.Pictures
-            };
+            var ad = AutoMapper.Mapper.Map<AdInfo>(adInfoDto);
+            _repo.AddAd(ad);
+            if (!_repo.Save())
+                return StatusCode(500, "Post request could not be handled.");
 
-            _repo.AddAd(adInfo);
-            return CreatedAtRoute("GetAd", new { Id = adInfo.Id }, adInfo);
+            return CreatedAtRoute("GetAd", new { Id = ad.Id }, ad);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        // PATCH api/ads/5
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument<AdInfoDto> adInfoDtoPatch)
         {
+            if (adInfoDtoPatch == null)
+                return BadRequest();          
+
+            if (!_repo.AdExists(id))
+                return NotFound();
+
+            var adInfo = _repo.GetAd(id);
+            if (adInfo == null)
+                return NotFound();
+
+            var adInfoDto = AutoMapper.Mapper.Map<AdInfoDto>(adInfo);
+
+            adInfoDtoPatch.ApplyTo(adInfoDto, ModelState);           
+
+            if (string.IsNullOrWhiteSpace(adInfoDto.Title))
+                ModelState.AddModelError("Description", "Title is missing.");
+
+            if (string.IsNullOrWhiteSpace(adInfoDto.Text))
+                ModelState.AddModelError("Description", "Text is missing.");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            AutoMapper.Mapper.Map(adInfoDto, adInfo);
+            if (!_repo.Save())
+                return StatusCode(500, "Patch request could not be handled.");
+         
+            return NoContent();
         }
 
-        // DELETE api/values/5
+
+        // DELETE api/ads/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!_repo.AdExists(id))
+                return NotFound();
+
+            var adInfo = _repo.GetAd(id);
+
+            if (adInfo == null)
+                return NotFound();
+
+            _repo.DeleteAd(adInfo);
+
+            if (!_repo.Save())
+                return StatusCode(500, "Delete request could not be handled.");
+
+            return NoContent();
         }
 
     }

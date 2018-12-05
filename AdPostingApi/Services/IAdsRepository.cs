@@ -13,5 +13,11 @@ namespace AdPostingApi.Services
         AdInfo GetAd(int id);
 
         AdInfo AddAd(AdInfo adInfo);
+
+        bool AdExists(int id);
+
+        bool Save();
+
+        void DeleteAd(AdInfo adInfo);
     }
 }

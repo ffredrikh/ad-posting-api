@@ -21,6 +21,7 @@ namespace AdPostingApi
     {
         public static IConfigurationRoot Cfg;
 
+
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {   
             Configuration = configuration;
@@ -32,6 +33,7 @@ namespace AdPostingApi
             Cfg = builder.Build();
         }
 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -42,6 +44,7 @@ namespace AdPostingApi
             var connstr = Cfg["ConnectionStrings:AdPostingApiConnStr"];
             services.AddDbContext<AdInfoContext>(o => o.UseSqlServer(connstr));
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -57,6 +60,7 @@ namespace AdPostingApi
 
             AutoMapper.Mapper.Initialize(cfg => {
                 cfg.CreateMap<AdInfo, AdInfoDto>();
+                cfg.CreateMap<AdInfoDto, AdInfo>();
                 cfg.CreateMap<AdPicture, AdPictureDto>();
             });
 
