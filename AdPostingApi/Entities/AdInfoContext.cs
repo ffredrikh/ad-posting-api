@@ -15,7 +15,6 @@ namespace AdPostingApi.Entities
         {
             Database.Migrate();         
         }
-
-       
+      
     }
 }
