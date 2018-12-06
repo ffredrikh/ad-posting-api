@@ -7,7 +7,7 @@ The purpose of this repo is merely experimental and about learning new things.
 
 - asp.net core - web framework
 
-- entity framework - database orm
+- entity framework core - database orm
 
 - automapper - mapping objects  
 
