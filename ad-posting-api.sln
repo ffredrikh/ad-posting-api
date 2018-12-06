@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdPostingApi", "AdPostingApi\AdPostingApi.csproj", "{BAF8E2B9-084A-4FFD-87AC-9B027EF2990A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ad-posting-api", "AdPostingApi\ad-posting-api.csproj", "{BAF8E2B9-084A-4FFD-87AC-9B027EF2990A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdPostingApiTests", "AdPostingApiTests\AdPostingApiTests.csproj", "{22DBBE98-9C0B-4E38-A008-0E07E3D8A4D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ad-posting-api-tests", "AdPostingApiTests\ad-posting-api-tests.csproj", "{22DBBE98-9C0B-4E38-A008-0E07E3D8A4D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdPostingApi\AdPostingApi.csproj" />
+    <ProjectReference Include="..\AdPostingApi\ad-posting-api.csproj" />
   </ItemGroup>
 
 </Project>
