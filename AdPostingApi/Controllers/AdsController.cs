@@ -20,11 +20,13 @@ namespace AdPostingApi.Controllers
         private IAdsRepository _repo;
         private ILogger<AdsController> _logger; 
 
+
         public AdsController(IAdsRepository repo, ILogger<AdsController> logger)
         {
             _repo = repo;
             _logger = logger;
         }
+
 
         // GET api/ads
         [HttpGet]
@@ -32,11 +34,6 @@ namespace AdPostingApi.Controllers
         {
             var ads = AutoMapper.Mapper.Map<IEnumerable<AdInfoDto>>(_repo.GetAds());
             return Ok(ads);
-        }
-
-        public object Setup(Func<object, object> p)
-        {
-            throw new NotImplementedException();
         }
 
 
