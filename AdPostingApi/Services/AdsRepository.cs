@@ -64,7 +64,7 @@ namespace AdPostingApi.Services
 
                 new AdInfo(){
                     Title = "Test title 3", Text = "Test text 3", Category = "Test category 3",
-                    Pictures = new List<AdPicture>(){ new AdPicture() { Title = "Test picture 2", Url = "Test url 2" }}
+                    Pictures = new List<AdPicture>(){ new AdPicture() { Title = "Test picture 3", Url = "Test url 3" }}
                 }
             };
 

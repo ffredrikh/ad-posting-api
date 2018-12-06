@@ -1,15 +1,10 @@
 using AdPostingApi.Controllers;
 using AdPostingApi.Entities;
-using AdPostingApi.Models;
 using AdPostingApi.Services;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 

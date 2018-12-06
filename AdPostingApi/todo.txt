@@ -1,6 +1,5 @@
 ﻿________________TODO
 
-
+- async?
 - Storing sensitive data / enviroments?
-- Add unit tests
 - handle strings
