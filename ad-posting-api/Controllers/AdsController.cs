@@ -2,6 +2,7 @@
 using AdPostingApi.Models;
 using AdPostingApi.Services;
 using AdPostingApi.Utilities;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,7 @@ namespace AdPostingApi.Controllers
 
         // GET api/ads
         [HttpGet]
+        [EnableCors("AllowAllOrigins")]
         public IActionResult Get()
         {
             var ads = AutoMapper.Mapper.Map<IEnumerable<AdInfoDto>>(_repo.GetAds());

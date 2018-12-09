@@ -49,6 +49,14 @@ namespace AdPostingApi
             {
                 c.SwaggerDoc("v1", new Info { Title = "ad-posting-api", Version = "v1" });
             });
+
+            // Test only -unsafe practise
+            services.AddCors(o => o.AddPolicy("AllowAllOrigins",
+            builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
+
         }
 
 
