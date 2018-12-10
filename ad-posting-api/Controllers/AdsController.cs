@@ -52,6 +52,7 @@ namespace AdPostingApi.Controllers
 
         // POST api/ads
         [HttpPost]
+        [EnableCors("AllowAllOrigins")]
         public IActionResult Post([FromBody] AdInfoDto adInfoDto)
         {
             if (adInfoDto == null)
