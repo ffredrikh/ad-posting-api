@@ -4,7 +4,6 @@ asp.net core api
 The purpose of this repo is merely experimental and about learning new things.
 
 # Tools
-
 - asp.net core - web framework
 
 - entity framework core - database orm
