@@ -3,7 +3,7 @@ asp.net core api
 
 The purpose of this repo is merely experimental and about learning new things.
 
-# Technologies and tools beeing used
+# Tools
 
 - asp.net core - web framework
 
