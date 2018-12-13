@@ -131,6 +131,7 @@ namespace AdPostingApi.Controllers
 
         // DELETE api/ads/5
         [HttpDelete("{id}")]
+        [EnableCors("AllowAllOrigins")]
         public IActionResult Delete(int id)
         {
             if (!_repo.AdExists(id))
